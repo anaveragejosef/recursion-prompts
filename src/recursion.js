@@ -138,14 +138,54 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+  if (n === 1) {
+    return true;
+  }
+  if (n === 0) {
+    return false;
+  }
+  
+  n = n/2;
+  
+  if (n%2 !== 0 && n !== 1) {
+    return false;
+  } else {
+    return (powerOfTwo(n));
+  } 
 };
 
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
+  var array = string.split('');
+  var lastLetter = array[array.length-1];
+  array.pop();
+  string = array.join('');
+  if (string.length === 0) {
+    return lastLetter;
+  }
+  return (lastLetter + reverse(string));
 };
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
+  var string = string.toLowerCase();
+  var array = string.split('');
+  if (string.length === 0) {
+    return true;
+  }
+  if (array[0] === ' ') {
+    array.pop();
+    string = array.join('');
+    return (palindrome(string));
+  }
+  if (array[0] === array[array.length-1]){
+    array.pop();
+    array.shift();
+    string = array.join('');
+    return (palindrome(string));
+  } else {
+    return false;
+  }
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
