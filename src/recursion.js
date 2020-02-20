@@ -230,7 +230,21 @@ var modulo = function(x, y) {
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
 var multiply = function(x, y) {
-  
+  if (y === 1 || y === -1) {
+    return x;
+  }
+  if (y === 0 || x === 0) {
+    return 0;
+  }
+  if (x < 0 && y < 0) {
+    var x = -x;
+    var y = -y;
+  } else if (x > 0 && y < 0) {
+    var y = -y;
+    var x = -x;
+  }
+  y--;
+  return (x + multiply(x, y));
 };
 
 // 13. Write a function that divides two numbers without using the / operator or
