@@ -318,21 +318,58 @@ var gcd = function(x, y) {
 // compareStr('house', 'houses') // false
 // compareStr('tomato', 'tomato') // true
 var compareStr = function(str1, str2) {
+  var arr1 = str1.split('');
+  var arr2 = str2.split('');
+  if (arr1[0] === undefined && arr2[0] === undefined) {
+    return true;
+  }
+  if (arr1[0] === arr2[0]){
+    arr1.shift();
+    arr2.shift();
+    var str1 = arr1.join('');
+    var str2 = arr2.join('');
+    return compareStr(str1, str2);
+  } else {
+    return false;
+  }
 };
 
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
 var createArray = function(str) {
+  var arr = str.split('');
+  if (arr[0] === undefined) {
+    return [];
+  }
+  var array = [];
+  array.push(arr[0]);
+  arr.shift();
+  var str = arr.join('');
+  return (array.concat(createArray(str)));
 };
 
 // 17. Reverse the order of an array
 var reverseArr = function(array) {
+  if (array[0] === undefined) {
+    return [];
+  }
+  var revArr = [];
+  revArr.push(array[array.length-1]);
+  array.pop();
+  return (revArr.concat(reverseArr(array)));
 };
 
 // 18. Create a new array with a given value and length.
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
 var buildList = function(value, length) {
+  if (length === 0) {
+    return [];
+  }
+  var array = [];
+  array.push(value);
+  length--;
+  return (array.concat(buildList(value, length)));
 };
 
 // 19. Implement FizzBuzz. Given integer n, return an array of the string representations of 1 to n.
@@ -341,6 +378,22 @@ var buildList = function(value, length) {
 // For numbers which are multiples of both three and five, output “FizzBuzz” instead of the number.
 // fizzBuzz(5) // ['1','2','Fizz','4','Buzz']
 var fizzBuzz = function(n) {
+  var array = [];
+  if (n === 0){
+    return [];
+  }
+  if (n % 3 === 0 && n % 5 === 0){
+    array.push('FizzBuzz');
+  } else if (n % 3 === 0){
+    array.push('Fizz');
+  } else if (n % 5 === 0) {
+    array.push('Buzz');
+  } else {
+    var letter = n.toString();
+    array.push(letter);
+  }
+  n--;
+  return ((fizzBuzz(n)).concat(array));
 };
 
 // 20. Count the occurence of a value in a list.
