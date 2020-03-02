@@ -400,11 +400,30 @@ var fizzBuzz = function(n) {
 // countOccurrence([2,7,4,4,1,4], 4) // 3
 // countOccurrence([2,'banana',4,4,1,'banana'], 'banana') // 2
 var countOccurrence = function(array, value) {
+  if (array.length === 0) {
+    return 0;
+  }
+  if (array[0] === value){
+    array.shift();
+    return (1 + countOccurrence(array, value));
+  } else {
+    array.shift();
+    return (0 + countOccurrence(array, value));
+  }
 };
 
 // 21. Write a recursive version of map.
 // rMap([1,2,3], timesTwo); // [2,4,6]
 var rMap = function(array, callback) {
+  if (array.length === 0) {
+    return [];
+  }
+  var newVal = callback(array[0]);
+  var newArr = [];
+  newArr.push(newVal);
+  var array = array.slice(0);
+  array.shift();
+  return (newArr.concat(rMap(array, callback)));
 };
 
 // 22. Write a function that counts the number of times a key occurs in an object.
@@ -412,6 +431,16 @@ var rMap = function(array, callback) {
 // countKeysInObj(obj, 'r') // 1
 // countKeysInObj(obj, 'e') // 2
 var countKeysInObj = function(obj, key) {
+  var count = 0;
+  for (var value in obj) {
+    if (typeof obj[value] === 'object') {
+      count += countKeysInObj(obj[value], key);
+    }
+    if (value === key) {
+      count++;
+    }
+  }
+  return count;
 };
 
 // 23. Write a function that counts the number of times a value occurs in an object.
@@ -419,6 +448,16 @@ var countKeysInObj = function(obj, key) {
 // countValuesInObj(obj, 'r') // 2
 // countValuesInObj(obj, 'e') // 1
 var countValuesInObj = function(obj, value) {
+  var count = 0;
+  for (var key in obj) {
+    if (typeof obj[key] === 'object') {
+      count += countValuesInObj(obj[key], value);
+    }
+    if (obj[key] === value) {
+      count++;
+    }
+  }
+  return count;
 };
 
 // 24. Find all keys in an object (and nested objects) by a provided name and rename
