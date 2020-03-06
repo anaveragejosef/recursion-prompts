@@ -516,17 +516,45 @@ var fibonacci = function(n) {
 // nthFibo(7); // 13
 // nthFibo(3); // 2
 var nthFibo = function(n) {
+  if (n === 0) {
+    return 0;
+  }
+  if (n === 1) {
+    return 1;
+  }
+  if (n < 0) {
+  	return null;
+  }
+  return nthFibo(n-1) + nthFibo(n-2);
 };
 
 // 27. Given an array of words, return a new array containing each word capitalized.
 // var words = ['i', 'am', 'learning', 'recursion'];
 // capitalizedWords(words); // ['I', 'AM', 'LEARNING', 'RECURSION']
 var capitalizeWords = function(array) {
+  if (array[0] === undefined) {
+    return [];
+  }
+  var upperWord = array[0].toUpperCase();
+  var arrary = array.shift();
+  var capArray = [upperWord];
+  return capArray.concat(capitalizeWords(array));
 };
 
 // 28. Given an array of strings, capitalize the first letter of each index.
 // capitalizeFirst(['car','poop','banana']); // ['Car','Poop','Banana']
 var capitalizeFirst = function(array) {
+  if (array[0] === undefined) {
+    return [];
+  }
+  var lowerWord = array[0];
+  var lowerArr = lowerWord.split('');
+  var firstLetter = lowerArr[0].toUpperCase();
+  lowerArr.splice(0, 1, firstLetter);
+  var upperFirst = lowerArr.join('');
+  var camelArr = [upperFirst];
+  var removeFirst = array.shift();
+  return camelArr.concat(capitalizeFirst(array));
 };
 
 // 29. Return the sum of all even numbers in an object containing nested objects.
